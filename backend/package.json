@@ -1,32 +1,23 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Internet Provider Comparison Backend",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts",
-    "build": "tsc"
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "axios": "^1.9.0",
+    "express": "^4.18.2",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
-    "dotenv": "^16.5.0",
-    "express": "^4.18.0",
-    "xml2js": "^0.6.2"
-  },
-  "devDependencies": {
-    "@types/axios": "^0.14.4",
-    "@types/cors": "^2.8.18",
-    "@types/express": "^4.17.21",
-    "@types/node": "^22.15.29",
-    "@types/xml2js": "^0.4.14",
-    "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "dotenv": "^16.0.3",
+    "axios": "^1.6.0",
+    "xml2js": "^0.6.2",
+    "typescript": "^4.9.5",
+    "ts-node": "^10.9.1",
+    "@types/node": "^18.15.0",
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/xml2js": "^0.4.11"
   }
 }
