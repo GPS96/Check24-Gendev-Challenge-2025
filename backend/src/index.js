@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// API routes
+// API routes FIRST (before static files)
 app.use('/api/providers', providerRoutes);
 
 app.get('/health', (req, res) => {
@@ -22,14 +22,14 @@ app.get('/health', (req, res) => {
   });
 });
 
-// 🔧 NEW: Serve frontend static files
+// 🔧 FIX: Serve static files from frontend build
 app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
-// 🔧 NEW: Serve React app for all non-API routes
+// 🔧 FIX: Catch-all handler for React Router (MUST be last)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Backend server running on port ${PORT}`);
+  console.log(`Full-stack app running on port ${PORT}`);
 });
