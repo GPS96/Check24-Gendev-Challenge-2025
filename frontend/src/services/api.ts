@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+// 🔧 FIX: Use Railway URL in production
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://check24-gendev-challenge-2025-production.up.railway.app/api'
+  : 'http://localhost:3001/api';
 
 export interface SearchQuery {
   street: string;
@@ -39,7 +42,7 @@ export interface ComparisonResult {
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 seconds to allow for provider retries
+  timeout: 30000,
 });
 
 export const searchProviders = async (query: SearchQuery): Promise<ComparisonResult> => {
