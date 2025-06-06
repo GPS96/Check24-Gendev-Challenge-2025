@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path');
 const { providerRoutes } = require('./routes/providerRoutes');
 
 dotenv.config();
@@ -9,30 +8,28 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// 🔧 CORS for separate frontend deployment
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    // Add your frontend Railway URL here after deployment
+    'https://frontend-production-*.up.railway.app'
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
-//Use path.resolve() instead of __dirname
-const resolvedDirectory = path.resolve();
-
-// API routes
+// API routes only (no static file serving)
 app.use('/api/providers', providerRoutes);
 
 app.get('/health', (req, res) => {
   res.json({
-    status: 'Server is running',
+    status: 'Backend server running',
     timestamp: new Date().toISOString()
   });
 });
 
-// WORKING STATIC FILE SERVING
-app.use(express.static(path.join(resolvedDirectory, '/frontend/build')));
-
-//  WORKING CATCH-ALL
-app.get('*', (req, res) => {
-  res.sendFile(path.join(resolvedDirectory, '/frontend/build/index.html'));
-});
-
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Backend API server running on port ${PORT}`);
 });
