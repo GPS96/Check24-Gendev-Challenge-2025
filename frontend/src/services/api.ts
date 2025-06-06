@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Point to separate backend service
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://backend-production-*.up.railway.app/api'
+  ? 'https://check24-gendev-challenge-2025-production.up.railway.app/api'
   : 'http://localhost:3001/api';
 
 export interface SearchQuery {
