@@ -9,30 +9,30 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// 🔧 FIX: Serve static files FIRST (based on search result #2)
-const buildPath = path.join(__dirname, '../../frontend/build');
-app.use(express.static(buildPath));
+// 🔧 CRITICAL FIX: Serve static files (based on search result #6)
+app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
-// API routes AFTER static files
+// API routes
 app.use('/api/providers', providerRoutes);
 
+// Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'Server is running',
-    timestamp: new Date().toISOString(),
-    buildPath: buildPath // Debug info
+    timestamp: new Date().toISOString()
   });
 });
 
-// 🔧 CRITICAL: Catch-all for React Router (MUST be last)
+// 🔧 CATCH-ALL for React Router (MUST be last)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Full-stack app running on port ${PORT}`);
-  console.log(`Serving static files from: ${buildPath}`);
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
