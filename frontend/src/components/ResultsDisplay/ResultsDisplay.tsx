@@ -202,7 +202,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onShare
               <p className="text-gray-500 dark:text-gray-400 text-lg">No offers available yet.</p>
               <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
                 {allOffers.length === 0 
-                  ? "Try getting real API credentials to see actual offers!" 
+                  ? "Please try different search criteria or check back later" 
                   : "Try adjusting your filters to see more results."}
               </p>
             </div>
